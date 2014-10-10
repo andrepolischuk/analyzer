@@ -27,7 +27,7 @@
 
 ### path
 
-  Set path to send request with data
+  Set path for sending request data
 
 ### sid
 
