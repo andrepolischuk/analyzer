@@ -174,8 +174,11 @@
       var time = (dt.getHours() < 10 ? '0' : '') + dt.getHours() +
         ':' + ((dt.getMinutes() < 10) ? '0' : '') + dt.getMinutes();
 
-      var th = dt.getTimezoneOffset() / 60; // integer part
-      var tm = (dt.getTimezoneOffset() % 60) / 60; // divisional part
+      // integer part
+      var th = dt.getTimezoneOffset() / 60;
+
+      // divisional part
+      var tm = (dt.getTimezoneOffset() % 60) / 60;
 
       var timeZone = 'UTC' + (th > 0 ? '-' : '+') +
         ((th - tm) + (tm !== 0 ? (':' + (60 * tm)) : '')).replace(/-?/i, "");
@@ -657,21 +660,34 @@
         }
       }
 
-      req.array.appName = app[0]; // browser name
-      req.array.appVers = (parseFloat(app[1] + '.' + app[2])) || 'undefined'; // browser version
-      req.array.appLang = (navigator.language || navigator.systemLanguage || navigator.userLanguage).substr(0, 2).toLowerCase(); // language
+      // browser name
+      req.array.appName = app[0];
 
-      req.array.osName = os[0]; // OS name
-      req.array.osVers = os[1]; // OS version
+      // browser version
+      req.array.appVers = (parseFloat(app[1] + '.' + app[2])) || 'undefined';
 
-      req.array.t  = date[0] + ' ' + date[1]; // date & time
-      req.array.tz = date[2]; // time zone UTC+X
+      // language
+      req.array.appLang = (navigator.language || navigator.systemLanguage || navigator.userLanguage).substr(0, 2).toLowerCase();
 
-      req.array.screen = getScreen(); // screen
+      // OS name
+      req.array.osName = os[0];
 
+      // OS version
+      req.array.osVers = os[1];
+
+      // date & time
+      req.array.t  = date[0] + ' ' + date[1];
+
+      // time zone UTC+X
+      req.array.tz = date[2];
+
+      // screen resolution
+      req.array.screen = getScreen();
+
+      // site ID
       req.array.sid = sid;
 
-      // set user ID to self if defined
+      // user ID to self if defined
       if (cookie('__ghostUserID')) {
         req.array.uid = cookie('__ghostUserID');
       }
