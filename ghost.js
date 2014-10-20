@@ -20,37 +20,37 @@
     /**
      * Request array
      */
-    
+
     req.array = {};
 
     /**
      * Request string
      */
-    
+
     req.string = '';
 
     /**
      * Request path
      */
-    
+
     req.path = options.path || '';
 
     /**
      * Request connector
      */
-    
+
     req.connector = null;
 
     /**
      * Site ID
      */
-    
+
     var sid = options.sid || null;
 
     /**
      * User ID
      */
-    
+
     var uid = options.uid || null;
 
     /**
@@ -58,16 +58,16 @@
      * @return {Object}
      * @api private
      */
-    
+
     var getVariables = function() {
-      
+
       var i, len, hash;
 
       var params = {};
       var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
 
       for (i = 0, len = hashes.length, len; i < len; i++) {
-        
+
         hash = hashes[i].split('=');
 
         if (/^utm/gi.test(hash[0])) {
@@ -89,13 +89,13 @@
      * @return {String}
      * @api private
      */
-    
+
     var getSearch = function() {
 
       var ref = unescape(document.referrer);
       var hashes = ref.slice(ref.indexOf('?') + 1).split('&');
       var i, len, pn;
-      
+
       var q = {
         'a.ua'            : 's',
         'akavita.by'      : 'z',
@@ -147,9 +147,9 @@
       }
 
       for (i = 0, len = hashes.length, len; i < len; i+=1) {
-        
+
         hash = hashes[i].split('=');
-        
+
         if (hash[0] === pn) {
           return hash[1];
         }
@@ -162,7 +162,7 @@
      * @return {Array}
      * @api private
      */
-    
+
     var getDate = function() {
 
       var dt = new Date();
@@ -182,7 +182,7 @@
 
       var timeZone = 'UTC' + (th > 0 ? '-' : '+') +
         ((th - tm) + (tm !== 0 ? (':' + (60 * tm)) : '')).replace(/-?/i, "");
-      
+
       return [date, time, timeZone];
 
     };
@@ -192,7 +192,7 @@
      * @return {String}
      * @api private
      */
-    
+
     var getScreen = function() {
 
       var screenW = false;
@@ -222,7 +222,7 @@
      * @return {Array}
      * @api private
      */
-    
+
     var getOS = function() {
 
       var os;
@@ -328,12 +328,12 @@
      * @return {Array}
      * @api private
      */
-    
+
     var getAppByNavigator = function(chrAfterPoint) {
 
       var outputData;
       var ua = window.navigator.userAgent;
-        
+
       var OperaB   = /Opera[ \/]+\w+\.\w+/i;
       var OperaV   = /Version[ \/]+\w+\.\w+/i;
       var FirefoxB = /Firefox\/\w+\.\w+/i;
@@ -373,13 +373,13 @@
       }
 
       if ((chrAfterPoint === null || chrAfterPoint === 0) && outputData !== null) {
-        
+
         chrAfterPoint=outputData[2].length;
         outputData[2] = outputData[2].substring(0, chrAfterPoint);
         return outputData;
 
       } else if (chrAfterPoint !== null) {
-        
+
         outputData[2] = outputData[2].substr(0, chrAfterPoint);
         return outputData;
 
@@ -388,13 +388,13 @@
       }
 
     };
-    
+
     /**
      * Get browser from other params
      * @return {Array}
      * @api private
      */
-    
+
     var getAppByJs = function() {
 
       var browser = [];
@@ -435,7 +435,7 @@
      * @return {Array}
      * @api private
      */
-    
+
     var getApp = function(chrAfterPoint) {
 
       var appNav = getAppByNavigator(chrAfterPoint);
@@ -460,24 +460,24 @@
     var createRequest = function() {
 
       var req;
-      
+
       if (window.XMLHttpRequest) {
-        
+
         // normal browser
         req = new XMLHttpRequest();
 
       } else if (window.ActiveXObject) {
-        
+
         // IE
         try {
           req = new ActiveXObject('Msxml2.XMLHTTP');
         } catch (e) {}
-        
+
         try {
           req = new ActiveXObject('Microsoft.XMLHTTP');
         } catch (e) {}
       }
-      
+
       return req;
 
     };
@@ -489,26 +489,26 @@
      * @param {Function} callback
      * @api private
      */
-    
+
     var send = function(path, params, callback) {
 
       // create request
       req.connector = req.connector || createRequest();
-      
+
       if (req.connector) {
-        
+
         // send request
         req.connector.open('GET', path + (/\?/.test(path) ? '&' : '?') + params, true);
 
         // header for POST request
         // req.connector.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        
+
         req.connector.onreadystatechange = function() {
 
           try {
-            
+
             if (req.connector.readyState === 4) {
-              
+
               if (req.connector.status === 200) {
 
                 var rData = req.connector.responseText;
@@ -516,7 +516,7 @@
 
                 // json answer
                 result = new Object(eData);
-                
+
                 if (typeof callback === 'function') {
                   callback(result);
                 }
@@ -524,7 +524,7 @@
               } else {
 
                 // no data return
-                
+
               }
             }
 
@@ -538,26 +538,26 @@
       } else {
 
         // no ajax support
-        
+
       }
     };
 
     /**
      * Cookie functions
-     * 
+     *
      * regular cookie('example', 'foo');
      * cookie expired cookie('example', 'foo', { expires: 7 });
      * cookie with path cookie('example', 'foo', { path: '/admin' });
      * get cookie alert(cookie('example') );
      * cookie remove cookie('example', null);
-     * 
+     *
      * @param  {String} name
      * @param  {String} value
      * @param  {Object} options
      * @return {String}
      * @api private
      */
-    
+
     var cookie = function(name, value, options) {
 
       if (typeof value !== 'undefined') {
@@ -597,12 +597,12 @@
         var cookieValue = null;
 
         if (document.cookie && document.cookie !== '') {
-          
+
           var cookies = document.cookie.split(';');
 
           for (var i = 0; i < cookies.length; i++) {
 
-            var cookie = cookies[i].replace(/^(\s|\u00A0)+/g, ''); 
+            var cookie = cookies[i].replace(/^(\s|\u00A0)+/g, '');
 
             if (cookie.substring(0, name.length + 1) === name + '=') {
               cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
@@ -623,7 +623,7 @@
      * Make userdata shot
      * @api public
      */
-    
+
     this.push = function() {
 
       var ref  = unescape(document.referrer) || null;
@@ -715,7 +715,7 @@
     /**
      * Push data with initialize
      */
-    
+
     this.push();
 
   };
@@ -723,7 +723,7 @@
   /**
    * Example ghost creator
    */
-  
+
   var Creator = function(options) {
 
     options = options || {};
@@ -734,7 +734,7 @@
   /**
    * Module exports
    */
-  
+
   window.ghost = Creator;
 
 }();
