@@ -675,9 +675,21 @@
       // site ID
       req.array.sid = options.sid || null;
 
-      // user ID to self if defined
       if (cookie('__ghostUserID')) {
+
+        // user ID to self if defined
         req.array.uid = cookie('__ghostUserID');
+
+      } else {
+
+        // set new user ID session
+        req.array.uid = [
+          (new Date()).valueOf(),
+          (Math.random() * 1000000000).toFixed()
+        ].join('');
+
+        cookie('__ghostUserID', req.array.uid, { path : window.location.pathname });
+
       }
 
       // create request string from array
@@ -706,7 +718,7 @@
 
     this.push();
 
-  };
+  }
 
   /**
    * Example ghost creator
@@ -717,7 +729,7 @@
     options = options || {};
     return new Ghost(options);
 
-  };
+  }
 
   /**
    * Module exports
