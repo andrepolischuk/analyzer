@@ -761,6 +761,20 @@
    * Module exports
    */
 
-  window.ghost = Creator;
+  if (typeof define === 'function' && define.amd) {
 
-}();
+    define([], function() {
+      return Creator;
+    });
+
+  } else if (typeof module !== 'undefined' && module.exports) {
+
+    module.exports = Creator;
+
+  } else {
+
+    this.ghost = Creator;
+
+  }
+
+}.call(this);
