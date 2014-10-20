@@ -15,40 +15,47 @@
   Via script tag in page sources:
 
 ```html
-
 <script src="/static/js/ghost.min.js"></script>
-<script>
-  var gh = ghost({
-    path : 'BACKEND_PATH',
-    sid  : 'SITE_ID'
-  });
-</script>
 ```
 
-### path
+```js
+  var gh = ghost(options[, callback]);
+```
 
-  Set path for sending request data
+### options.path
 
-### sid
+  Set path for sending request data.
+  If path is not set, data is not sent.
+
+### options.sid
 
   Set site ID
 
-### uid
+### callback
 
-  Set user ID
+  Set callback for push data request
 
 ## API
-  
-### ghost.push()
 
-  Research user data and send again
+### ghost.push([callback])
+
+  Research user data and send again with callback,
+  which will be called instead of ghost global callback.
+
+```js
+ghost.push(function(req) {
+
+});
+```
+
+  `req` is user data array aggregated by ghost
 
 ## Request
 
   Tracker send GET request to defined path
 
 ### sid
-  
+
   Site ID
 
 ### uid
@@ -56,11 +63,11 @@
   User ID
 
 ### pageUrl
-  
+
   Current page URL
 
 ### pageRef
-  
+
   Referer page URL
 
 ### pageVars
@@ -72,23 +79,23 @@
   Search query
 
 ### pageCc
-  
+
   Page cookies
 
 ### appName
-  
+
   Browser name
 
 ### appVers
-  
+
   Browser version
 
 ### appLang
-  
+
   Browser language
 
 ### osName
-  
+
   OS name
 
 ### osVers
@@ -96,13 +103,13 @@
   OS version
 
 ### t
-  
+
   User date and time, example 17.01.2013 17:34
 
 ### tz
-  
+
   User timezone, example UTC 7
 
 ### screen
-  
+
   User screen resolution
