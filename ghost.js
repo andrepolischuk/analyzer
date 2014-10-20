@@ -708,7 +708,9 @@
       cookie('__ghostLastVisit', req.array.t, { path : window.location.pathname });
 
       // send parsed params
-      send(req.path, req.str);
+      if (req.path.length) {
+        send(req.path, req.str);
+      }
 
       // callback
       if (typeof callback === 'function') {
