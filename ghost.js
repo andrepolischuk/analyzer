@@ -9,7 +9,7 @@
    * Ghost prototype
    */
 
-  var Ghost = function(options) {
+  function Ghost(options) {
 
     /**
      * Request
@@ -40,18 +40,6 @@
      */
 
     req.connector = null;
-
-    /**
-     * Site ID
-     */
-
-    var sid = options.sid || null;
-
-    /**
-     * User ID
-     */
-
-    var uid = options.uid || null;
 
     /**
      * Get url utm params
@@ -685,7 +673,7 @@
       req.array.screen = getScreen();
 
       // site ID
-      req.array.sid = sid;
+      req.array.sid = options.sid || null;
 
       // user ID to self if defined
       if (cookie('__ghostUserID')) {
@@ -724,7 +712,7 @@
    * Example ghost creator
    */
 
-  var Creator = function(options) {
+  function Creator(options) {
 
     options = options || {};
     return new Ghost(options);
