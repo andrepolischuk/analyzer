@@ -612,7 +612,7 @@
      * @api public
      */
 
-    this.push = function() {
+    this.push = function(callback) {
 
       var ref  = unescape(document.referrer) || null;
       var q    = getSearch() || null;
@@ -710,6 +710,19 @@
       // send parsed params
       send(req.path, req.str);
 
+      // callback
+      if (typeof callback === 'function') {
+
+        // local
+        callback(req.array);
+
+      } else if (typeof options.callback === 'function') {
+
+        // global
+        options.callback(req.array);
+
+      }
+
     };
 
     /**
@@ -724,9 +737,20 @@
    * Example ghost creator
    */
 
-  function Creator(options) {
+  function Creator(options, callback) {
 
-    options = options || {};
+    if (typeof options === 'function') {
+
+      callback = options;
+      options  = {};
+
+    } else {
+
+      options = options || {};
+
+    }
+
+    options.callback = callback;
     return new Ghost(options);
 
   }
