@@ -15,7 +15,7 @@
   Via script tag in page sources:
 
 ```html
-<script src="/static/js/ghost.min.js"></script>
+<script src="//cdn.rawgit.com/andrepolischuk/ghost/1.0.0/ghost.min.js"></script>
 ```
 
 ```js
