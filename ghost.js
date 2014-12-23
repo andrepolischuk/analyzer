@@ -296,7 +296,7 @@
 
         os = macOSX.test(ua) ? ['Mac OS X', ua.replace(macOSX, "$1.$2")] : ['Mac OS', 'undefined'];
 
-      } else if (linus.test(ua)) {
+      } else if (linux.test(ua)) {
 
         os = ['Linux', 'undefined'];
 
