@@ -1,7 +1,7 @@
 // Ghost © 2013-2014 Andrey Polischuk
 // https://github.com/andrepolischuk/ghost
 
-!function(undefined) {
+!function() {
 
   'use strict';
 
@@ -47,7 +47,7 @@
      * @api private
      */
 
-    var getVariables = function() {
+    function getVariables() {
 
       var i, len, hash;
 
@@ -68,9 +68,9 @@
         return params;
       }
 
-      return false;
+      return;
 
-    };
+    }
 
     /**
      * Get search machine query
@@ -78,7 +78,7 @@
      * @api private
      */
 
-    var getSearch = function() {
+    function getSearch() {
 
       var ref = unescape(document.referrer);
       var hashes = ref.slice(ref.indexOf('?') + 1).split('&');
@@ -143,7 +143,7 @@
         }
       }
 
-    };
+    }
 
     /**
      * Get visit date
@@ -151,7 +151,7 @@
      * @api private
      */
 
-    var getDate = function() {
+    function getDate() {
 
       var dt = new Date();
 
@@ -173,7 +173,7 @@
 
       return [date, time, timeZone];
 
-    };
+    }
 
     /**
      * Get user screen info
@@ -181,7 +181,7 @@
      * @api private
      */
 
-    var getScreen = function() {
+    function getScreen() {
 
       var screenW = false;
       var screenH = false;
@@ -203,7 +203,7 @@
 
       return screenW + 'x' + screenH;
 
-    };
+    }
 
     /**
      * Get system info
@@ -211,7 +211,7 @@
      * @api private
      */
 
-    var getOS = function() {
+    function getOS() {
 
       var os;
       var ua = window.navigator.userAgent;
@@ -308,7 +308,7 @@
 
       return os;
 
-    };
+    }
 
     /**
      * Get browser from userAgent string
@@ -317,7 +317,7 @@
      * @api private
      */
 
-    var getAppByNavigator = function(chrAfterPoint) {
+    function getAppByNavigator(chrAfterPoint) {
 
       var outputData;
       var ua = window.navigator.userAgent;
@@ -372,10 +372,10 @@
         return outputData;
 
       } else {
-        return false;
+        return;
       }
 
-    };
+    }
 
     /**
      * Get browser from other params
@@ -383,7 +383,7 @@
      * @api private
      */
 
-    var getAppByJs = function() {
+    function getAppByJs() {
 
       var browser = [];
 
@@ -410,12 +410,12 @@
       }
 
       if (!browser) {
-        return false;
+        return;
       } else {
         return browser;
       }
 
-    };
+    }
 
     /**
      * Get browser aggregated info
@@ -424,7 +424,7 @@
      * @api private
      */
 
-    var getApp = function(chrAfterPoint) {
+    function getApp(chrAfterPoint) {
 
       var appNav = getAppByNavigator(chrAfterPoint);
       var appJS  = getAppByJs();
@@ -434,10 +434,10 @@
       } else if (appNav[0] !== appJS[0]) {
         return appJS;
       } else {
-        return false;
+        return;
       }
 
-    };
+    }
 
     /**
      * Create ajax request
@@ -445,7 +445,7 @@
      * @api private
      */
 
-    var createRequest = function() {
+    function createRequest() {
 
       var req;
 
@@ -468,7 +468,7 @@
 
       return req;
 
-    };
+    }
 
     /**
      * Send request
@@ -478,57 +478,48 @@
      * @api private
      */
 
-    var send = function(path, params, callback) {
+    function send(path, params, callback) {
 
       // create request
       req.connector = req.connector || createRequest();
 
-      if (req.connector) {
+      if (!req.connector) {
+        return;
+      }
 
-        // send request
-        req.connector.open('GET', path + (/\?/.test(path) ? '&' : '?') + params, true);
+      // send request
+      req.connector.open('GET', path + (/\?/.test(path) ? '&' : '?') + params, true);
 
-        // header for POST request
-        // req.connector.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      // header for POST request
+      // req.connector.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        req.connector.onreadystatechange = function() {
+      req.connector.onreadystatechange = function() {
 
-          try {
+        try {
 
-            if (req.connector.readyState === 4) {
+          if (req.connector.readyState === 4 && req.connector.status === 200) {
 
-              if (req.connector.status === 200) {
+            var rData = req.connector.responseText;
+            var eData = !(/[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test(rData.replace(/"(\\.|[^"\\])*"/g, ''))) && eval('(' + rData + ')');
 
-                var rData = req.connector.responseText;
-                var eData = !(/[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test(rData.replace(/"(\\.|[^"\\])*"/g, ''))) && eval('(' + rData + ')');
+            // json answer
+            result = new Object(eData);
 
-                // json answer
-                result = new Object(eData);
-
-                if (typeof callback === 'function') {
-                  callback(result);
-                }
-
-              } else {
-
-                // no data return
-
-              }
+            if (typeof callback === 'function') {
+              callback(result);
             }
 
-          } catch(e) {}
+          }
 
-        };
 
-        // amp'ed string
-        req.connector.send(null);
+        } catch(e) {}
 
-      } else {
+      };
 
-        // no ajax support
+      // amp'ed string
+      req.connector.send(null);
 
-      }
-    };
+    }
 
     /**
      * Cookie functions
@@ -546,7 +537,7 @@
      * @api private
      */
 
-    var cookie = function(name, value, options) {
+    function cookie(name, value, options) {
 
       if (typeof value !== 'undefined') {
 
@@ -590,10 +581,10 @@
 
           for (var i = 0; i < cookies.length; i++) {
 
-            var cookie = cookies[i].replace(/^(\s|\u00A0)+/g, '');
+            var cc = cookies[i].replace(/^(\s|\u00A0)+/g, '');
 
-            if (cookie.substring(0, name.length + 1) === name + '=') {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            if (cc.substring(0, name.length + 1) === name + '=') {
+              cookieValue = decodeURIComponent(cc.substring(name.length + 1));
               break;
             }
 
@@ -605,7 +596,7 @@
 
       }
 
-    };
+    }
 
     /**
      * Make userdata shot
