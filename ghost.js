@@ -49,12 +49,10 @@
 
     function getVariables() {
 
-      var i, len, hash;
-
       var params = {};
       var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
 
-      for (i = 0, len = hashes.length, len; i < len; i++) {
+      for (var i = 0, len = hashes.length, hash; i < len; i++) {
 
         hash = hashes[i].split('=');
 
@@ -82,7 +80,7 @@
 
       var ref = decodeURIComponent(document.referrer);
       var hashes = ref.slice(ref.indexOf('?') + 1).split('&');
-      var i, len, pn;
+      var i, len, hash, pn;
 
       var q = {
         'a.ua'            : 's',
@@ -134,7 +132,7 @@
         return false;
       }
 
-      for (i = 0, len = hashes.length, len; i < len; i+=1) {
+      for (i = 0, len = hashes.length; i < len; i+=1) {
 
         hash = hashes[i].split('=');
 
@@ -502,11 +500,8 @@
             var rData = req.connector.responseText;
             var eData = !(/[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test(rData.replace(/"(\\.|[^"\\])*"/g, ''))) && eval('(' + rData + ')');
 
-            // json answer
-            result = new Object(eData);
-
             if (typeof callback === 'function') {
-              callback(result);
+              callback(new Object(eData));
             }
 
           }
