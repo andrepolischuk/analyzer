@@ -181,25 +181,14 @@
 
     function getScreen() {
 
-      var screenW = false;
-      var screenH = false;
-
-      if (parseInt(navigator.appVersion) > 3) {
-
-        screenW = screen.width;
-        screenH = screen.height;
-
-      } else if (navigator.appName === 'Netscape' && parseInt(navigator.appVersion) === 3 && navigator.javaEnabled()) {
-
-        var jToolkit = java.awt.Toolkit.getDefaultToolkit();
-        var jScreenSize = jToolkit.getScreenSize();
-
-        screenW = jScreenSize.width;
-        screenH = jScreenSize.height;
-
+      if (typeof window.screen !== 'object') {
+        return;
       }
 
-      return screenW + 'x' + screenH;
+      return [
+        screen.width,
+        screen.height
+      ].join('x');
 
     }
 
@@ -462,6 +451,7 @@
         try {
           req = new ActiveXObject('Microsoft.XMLHTTP');
         } catch (e) {}
+
       }
 
       return req;
@@ -505,7 +495,6 @@
             }
 
           }
-
 
         } catch(e) {}
 
