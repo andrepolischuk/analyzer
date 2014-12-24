@@ -80,7 +80,7 @@
 
     function getSearch() {
 
-      var ref = unescape(document.referrer);
+      var ref = decodeURIComponent(document.referrer);
       var hashes = ref.slice(ref.indexOf('?') + 1).split('&');
       var i, len, pn;
 
@@ -605,7 +605,7 @@
 
     this.push = function(callback) {
 
-      var ref  = unescape(document.referrer) || null;
+      var ref  = decodeURIComponent(document.referrer) || null;
       var q    = getSearch() || null;
       var vars = getVariables() || null;
       var app  = getApp(1);
@@ -613,7 +613,7 @@
       var date = getDate();
 
       // parse params to request array
-      req.array.pageUrl = unescape(window.location.href);
+      req.array.pageUrl = decodeURIComponent(window.location.href);
 
       // get referrer
       if (ref) {
@@ -686,7 +686,7 @@
       // create request string from array
       for (var e in req.array) {
         if (req.array.hasOwnProperty(e)) {
-          req.str += (escape(e) + '=' + escape(req.array[e]) + '&');
+          req.str += (encodeURIComponent(e) + '=' + encodeURIComponent(req.array[e]) + '&');
         }
       }
 
