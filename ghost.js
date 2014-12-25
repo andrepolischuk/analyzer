@@ -185,10 +185,21 @@
         return;
       }
 
-      return [
+      var res = {};
+
+      res.screen = [
         screen.width,
         screen.height
       ].join('x');
+
+      res.orientation = screen.orientation ||
+        screen.mozOrientation || screen.msOrientation || null;
+
+      if (res.orientation) {
+        res.orientation = res.orientation.angle;
+      }
+
+      return res;
 
     }
 
@@ -595,6 +606,7 @@
       var app  = getApp(1);
       var os   = getOS();
       var date = getDate();
+      var scr  = getScreen();
 
       // parse params to request array
       req.array.pageUrl = decodeURIComponent(window.location.href);
@@ -645,7 +657,14 @@
       req.array.tz = date[2];
 
       // screen resolution
-      req.array.screen = getScreen();
+      if (scr) {
+        req.array.screen = scr.screen;
+      }
+
+      // screen orientation
+      if (scr && 'orientation' in scr) {
+        req.array.screenOrientation = scr.orientation;
+      }
 
       // site ID
       req.array.sid = options.sid || null;
