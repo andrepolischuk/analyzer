@@ -12,11 +12,25 @@
 
 ## Instalation
 
-  Via script tag in page sources:
+  Browser:
 
 ```html
-<script src="//cdn.rawgit.com/andrepolischuk/analyzer/1.0.0/analyzer.min.js"></script>
+<script src="//cdn.rawgit.com/andrepolischuk/analyzer/1.1.0/analyzer.min.js"></script>
 ```
+
+  Component(1):
+
+```sh
+$ component install andrepolischuk/analyzer
+```
+
+  Npm:
+
+```sh
+$ npm install analyzer
+```
+
+## Use
 
 ```js
   var anl = analyzer(options[, callback]);
