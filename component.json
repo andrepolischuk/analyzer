@@ -1,0 +1,18 @@
+{
+  "name": "analyzer",
+  "description": "Client-side user data tracker",
+  "version": "1.0.0",
+  "keywords": [
+    "analytics",
+    "tracker",
+    "data",
+    "cookie",
+    "user"
+  ],
+  "repository": "andrepolischuk/analyzer",
+  "main" : "analyzer.js",
+  "scripts" : [
+    "analyzer.js"
+  ],
+  "license": "MIT"
+}
