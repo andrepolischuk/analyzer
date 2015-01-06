@@ -1,15 +1,15 @@
-// Ghost © 2013-2014 Andrey Polischuk
-// https://github.com/andrepolischuk/ghost
+// Analyzer © 2013-2015 Andrey Polischuk
+// github.com/andrepolischuk/analyzer
 
 !function() {
 
   'use strict';
 
   /**
-   * Ghost prototype
+   * Module
    */
 
-  function Ghost(options) {
+  function Analyzer(options) {
 
     /**
      * Request
@@ -669,10 +669,10 @@
       // site ID
       req.array.sid = options.sid || null;
 
-      if (cookie('__ghostUserID')) {
+      if (cookie('__analyzerUserID')) {
 
         // user ID to self if defined
-        req.array.uid = cookie('__ghostUserID');
+        req.array.uid = cookie('__analyzerUserID');
 
       } else {
 
@@ -682,7 +682,7 @@
           (Math.random() * 1000000000).toFixed()
         ].join('');
 
-        cookie('__ghostUserID', req.array.uid, { path : window.location.pathname });
+        cookie('__analyzerUserID', req.array.uid, { path : window.location.pathname });
 
       }
 
@@ -696,10 +696,10 @@
       req.str = req.str.substr(0, req.str.length - 1);
 
       // set date & time cookies
-      if (!cookie('__ghostFirstVisit')) {
-        cookie('__ghostFirstVisit', req.array.t, { path : window.location.pathname });
+      if (!cookie('__analyzerFirstVisit')) {
+        cookie('__analyzerFirstVisit', req.array.t, { path : window.location.pathname });
       }
-      cookie('__ghostLastVisit', req.array.t, { path : window.location.pathname });
+      cookie('__analyzerLastVisit', req.array.t, { path : window.location.pathname });
 
       // send parsed params
       if (req.path.length) {
@@ -730,7 +730,7 @@
   }
 
   /**
-   * Example ghost creator
+   * Creator
    */
 
   function Creator(options, callback) {
@@ -747,7 +747,7 @@
     }
 
     options.callback = callback;
-    return new Ghost(options);
+    return new Analyzer(options);
 
   }
 
@@ -767,7 +767,7 @@
 
   } else {
 
-    this.ghost = Creator;
+    this.analyzer = Creator;
 
   }
 

@@ -1,25 +1,25 @@
-# Ghost
+# Analyzer
 
   Client-side user data tracker
 
-* URL parameters
-* cookies
-* search query
-* referer URL
-* browser parameters
-* OS parameters
-* timezone
+  * URL parameters
+  * cookies
+  * search query
+  * referer URL
+  * browser parameters
+  * OS parameters
+  * timezone
 
 ## Instalation
 
   Via script tag in page sources:
 
 ```html
-<script src="//cdn.rawgit.com/andrepolischuk/ghost/1.0.0/ghost.min.js"></script>
+<script src="//cdn.rawgit.com/andrepolischuk/analyzer/1.0.0/analyzer.min.js"></script>
 ```
 
 ```js
-  var gh = ghost(options[, callback]);
+  var anl = analyzer(options[, callback]);
 ```
 
 ### options.path
@@ -37,18 +37,18 @@
 
 ## API
 
-### ghost.push([callback])
+### analyzer.push([callback])
 
   Research user data and send again with callback,
-  which will be called instead of ghost global callback.
+  which will be called instead of analyzer global callback.
 
 ```js
-ghost.push(function(req) {
+analyzer.push(function(req) {
 
 });
 ```
 
-  `req` is user data array aggregated by ghost
+  `req` is user data array aggregated by analyzer
 
 ## Request
 
