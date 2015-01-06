@@ -1,0 +1,19 @@
+{
+  "name": "analyzer",
+  "description": "Client-side user data tracker",
+  "version": "1.0.0",
+  "keywords": [
+    "analytics",
+    "tracker",
+    "data",
+    "cookie",
+    "user"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/andrepolischuk/analyzer.git"
+  },
+  "main": "analyzer.js",
+  "author": "Andrey Polischuk <andre.polischuk@gmail.com>",
+  "license": "MIT"
+}
