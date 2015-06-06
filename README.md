@@ -1,6 +1,6 @@
-# Analyzer
+# analyzer
 
-  Client-side user data tracker
+  > Client-side user data tracker
 
   * URL parameters
   * cookies
@@ -10,27 +10,17 @@
   * OS parameters
   * timezone
 
-## Instalation
-
-  Browser:
-
-```html
-<script src="//cdn.rawgit.com/andrepolischuk/analyzer/1.1.0/analyzer.min.js"></script>
-```
-
-  Component(1):
+## Install
 
 ```sh
-$ component install andrepolischuk/analyzer
+npm install --save analyzer
 ```
-
-  Npm:
 
 ```sh
-$ npm install analyzer
+component install andrepolischuk/analyzer
 ```
 
-## Use
+## Usage
 
 ```js
   var anl = analyzer(options[, callback]);
@@ -127,3 +117,7 @@ analyzer.push(function(req) {
 ### screen
 
   User screen resolution
+
+## License
+
+  MIT

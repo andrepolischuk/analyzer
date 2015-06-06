@@ -10,9 +10,9 @@
     "user"
   ],
   "repository": "andrepolischuk/analyzer",
-  "main" : "analyzer.js",
-  "scripts" : [
-    "analyzer.js"
+  "main": "index.js",
+  "scripts": [
+    "index.js"
   ],
   "license": "MIT"
 }

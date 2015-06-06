@@ -9,11 +9,8 @@
     "cookie",
     "user"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/andrepolischuk/analyzer.git"
-  },
-  "main": "analyzer.js",
+  "repository": "andrepolischuk/analyzer",
+  "main": "index.js",
   "author": "Andrey Polischuk <andre.polischuk@gmail.com>",
   "license": "MIT"
 }
