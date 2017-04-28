@@ -16,10 +16,6 @@
 npm install --save analyzer
 ```
 
-```sh
-component install andrepolischuk/analyzer
-```
-
 ## Usage
 
 ```js
